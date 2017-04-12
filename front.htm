@@ -1,0 +1,142 @@
+<div id="front_home_content">
+	<div id="front_home_slider">
+    	<img class="front_slider" src = "images/front/slider_1.jpg" />
+        <img class="front_slider" src = "images/front/slider_2.jpg" style="display:0;" />
+        <img class="front_slider" src = "images/front/slider_3.jpg" style="opacity:0;" />
+        <img class="front_slider" src = "images/front/slider_4.jpg" style="opacity:0;" />
+    </div>
+    <div id="front_home_services">
+        <h1>OUR SERVICES</h1>
+        <div id="front_home_ourservices">
+        <table width="80%" cellspacing="30" style="margin-left:10%;margin-right:10%;min-width:820px;">
+            <tr style="background-color:white;">
+            <td class="service-box" width="25%" style="background-image: url(images/lab-tests.png);">
+                <h2>Lab tests</h2>
+                <p>We do allmost all the lab tests you need in short time as possible. </p>
+                <input type="button" value="more" onClick="moreStories(0);">
+            </td><td class="service-box" width="25%" style="background-image: url(images/mini-surgeries.png);">
+                <h2>Mini Surgeries</h2>
+                <p>We undertake Mini surgeries as it is easy for you to get all the services under one roof. </p>
+            	<input type="button" value="more" onClick="moreStories(1);">
+            </td><td class="service-box" width="25%" style="background-image: url(images/pill-pod.png);">
+                <h2>Pill Pod</h2>
+                <p>Our latest product for elderly persons that will keep them healthy in this busy world. </p>
+            	<input type="button" value="more" onClick="moreStories(2);">
+            </td><td class="service-box" width="25%" style="background-image: url(images/drug-store.png);">
+                <h2>Drug Store</h2>
+                <p>We maintain a small scale drug store as you can purchase various drugs directly from us. </p>
+            	<input type="button" value="more" onClick="moreStories(3);">
+            </td></tr></table>
+    	</div> 
+    </div>
+	<div class="front_home_service_story" >
+        <div style="height:90px;">
+        <h1>Lab Tests</h1><input type="button" value="Back" onClick="hideStory(this);"></div>
+        <div><div class="front_home_service_story_img"  style="background-image: url(images/lab-tests.png);"></div>
+        <p>We have facilities to do laboratory tests like testing samples of blood,
+        urine, or other tissues or substances in the body. Our laboratory services are a vital component of quick
+        and accurate diagnosis, and subsequent treatment. Doctors will use these tests to identify changes in your
+        health condition before any symptoms occur or diagnose a disease or condition before you have symptoms and
+        also to plan your treatment for a disease or condition by monitoring the course of a disease over time.</p></div>
+	</div>
+    <div class="front_home_service_story" >
+        <div style="height:90px;">
+        <h1>Mini Surgeries</h1><input type="button" value="Back" onClick="hideStory(this);"></div>
+        <div><div class="front_home_service_story_img" style="background-image: url(images/mini-surgeries.png);"></div>
+        <p>As a team we perform a number of minor surgical procedures. We believe that 
+        performing these procedures in general practice gives our patients faster access to a more convenient service. 
+        However, there are limitations to procedures we are able to perform.</p></div>
+	</div>
+    <div class="front_home_service_story" >
+        <div style="height:90px;">
+        <h1>Pill Pod</h1><input type="button" value="Back" onClick="hideStory(this);"></div>
+        <div><div class="front_home_service_story_img" style="background-image: url(images/pill-pod.png);"></div>
+        <p>This is a device which will guide the correct medicine consumption of the patient 
+        and also connects the patient with his/her caretaker when the emergency button is pressed. This device is made 
+        with high technology and we have fully tested it. Once you ordered this device you will be guided on how to use 
+        it and its very easy and simple.</p></div>
+	</div>
+    <div class="front_home_service_story" >
+        <div style="height:90px;">
+        <h1>Drug Store</h1><input type="button" value="Back" onClick="hideStory(this);"></div>
+        <div><div class="front_home_service_story_img" style="background-image: url(images/drug-store.png);"></div>
+        <p>We have our own drug store. Almost all the functions we do here are automated so 
+        we can guarantee a 100% accuracy when issuing your medicines. We have put up a special team to maintain our drug 
+        store and they will help you any time. We can provide almost every drug that our doctors will prescribe so your 
+        work is far more easier and quicker.</p></div>
+	</div>
+	<div id="front_home_product" style="display:none;">
+    	<h1>Latest Technology in action</h1>
+    </div>
+    <div id="front_home_details">
+    <br><br>
+    	<table width="80%" cellspacing="0" cellpadding="0" style="margin-left:10%;margin-right:10%;"><tr>
+    	<td width="33.33%"><div id="front_home_contact">
+        	<h1>Quick Contact</h1>
+            <form action="javascript:contactSubmit();" name="front_home_contact">
+            <div class="front_home_details_field">
+            	<input type="text" placeholder="Full Name" name="nme" required pattern="[A-z ]+"/>
+            </div>
+            <div class="front_home_details_field">
+            	<input type="text" placeholder="Phone Number" name="num" required  pattern="0[0-9]{9}" maxlength="10"/>
+            </div>
+            <div class="front_home_details_field">
+            	<input type="email" placeholder="E-mail" name="mail" required/>
+            </div>
+            <div class="front_home_details_field">
+            	<input type="text" placeholder="Subject" name="sub" required pattern="[A-z s]+"/>
+            </div>
+            <div class="front_home_details_field" style="height:151px;">
+            	<textarea placeholder="Message" name="msg" aria-invalid="false" required></textarea>
+            </div>
+            <input type="submit" value="Send" name="home_contact_field"/>
+            </form>
+        </div></td>
+        <td width="33.33%">
+        <td><div id="front_home_workingdays">
+        	<h1>Working Days</h1><br><br>
+            <table class="timetable_hours" align="center" width="80%">
+                    <tbody><tr>
+                      <td width="50%" align="left">WEEKEND
+                      <td align="right">09:00-18:00</td>
+                    </tr>
+                    <tr>
+                      <td>WEEK DAYS</td>
+                      <td align="right">09:00-20:00</td>
+                    </tr>
+                    </tbody></table><br><br><br><br><br><br><br><div class="timetable_hours" align="center">WANT TO MAKE AN<br>APPOINTMENT? CHECK OUT<br>OUR SCHEDULE FIRST.</div>
+                  <form action="timeTables.php" target='_blank'>
+                  	<center><div id="docTimeTableButton"><input type="submit" id="docTimeTableButtonContent" value="Doctors Timetable"></div></center>
+                  </form>
+        </div></td>
+        </tr></table>
+    </div>
+
+</div>
+<div id="front_aboutus_content" style="display:none"> 
+	<div style="background-image:url(images/front/background2.jpg)" >
+        <div class="image"><img src="images/front/slider_8.jpg" alt="" width=100.5%/><img src="images/front/hands.jpg" alt="" class="img2"/>
+            <img src="images/front/guarantee.jpg" alt="" class="img3"/>
+            <h4><span>"TRUST US"</span><br>
+            <span>WE CAN HELP YOU</span></h4>
+        </div>
+        <h1><pre><a id="about_us_heading">    WHO ARE WE? </a></pre></h1>
+        <p class="three-col" id="services" style="color:white">Are you worried about your parents safety? Well, you don't have
+        to be. We can take care of them. We provide all the health facilities that your parent need. We can help you in many
+        ways. We have facilities to conduct lab tests, mini surgeries etc. We also have our own drug store. So your work is far
+        more easy. And most importantly we can provide you with a device called "Pillpod" which will guarantee the correct
+        medicine consumption of your parent. This device is made with high technology that can even help your parent in emergency
+        situations. So, you don't have to go after them all the time which they don't even like. We have a well experienced
+        doctor and a talented coordinator (a nurse) that will assure your parent's safety. We’re iCareU Medical Group. We do what
+        we love for the people we love. And we’re thankful for that. So join us today. See the contact details below.
+        </p><br><hr color="#ffdd1a" width="80%">
+        <div><h1><pre><a id="about_us_heading">   Services We Provide... </a></pre></h1>
+            <ul id="services" style="color:white">
+                <li>Manage the medicine consumptions</li><br>
+                <li>Remind about tests/appointments</li><br>
+                <li>Manage medical history</li><br>
+                <li>Help in emergency situations</li><br><br><br><br><br>
+            </ul>
+        </div>
+    </div>
+</div>

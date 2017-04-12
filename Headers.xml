@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<headers>
+<physician>
+	<item>&lt;li class="menuItem"			style="color:#4eabf9;font-weight:bolder;"&gt;Home&lt;/li&gt;</item>
+</physician>
+<coordinator>
+	<item>&lt;li class="menuItem"	onClick='menuItemClick("viewElderProfile",this,0);'	style="color:#4eabf9;font-weight:bolder;"&gt;Elder&lt;/li&gt;</item>
+	<item>&lt;li class="menuItem" 	onClick='menuItemClick("viewDrugStore",this,1);'	&gt;Drug Store&lt;/li&gt;</item>
+	<item>&lt;li class="menuItem" 	onClick='menuItemClick("viewPillPod",this,2);'		&gt;Pill Pod&lt;/li&gt;</item>
+	<item>&lt;li class="menuItem" 	onClick='menuItemClick("viewAppointments",this,3);'	&gt;Appointments&lt;/li&gt;</item>
+	<item>&lt;li class="menuItem" 	onClick='menuItemClick("viewMessages",this,4);'	&gt;Messages&lt;/li&gt;</item>
+	<item>&lt;li class="menuItem" 	onClick='menuItemClick("viewMyProfile",this,5);'	&gt;My Profile&lt;/li&gt;</item>
+</coordinator>
+<front>
+	<item>&lt;li class="menuItem"	onClick='menuItemClick("front_home_content",this,0);'	style="color:#4eabf9;font-weight:bolder;"&gt;Home&lt;/li&gt;</item>
+	<item>&lt;li class="menuItem"	onClick='menuItemClick("front_aboutus_content",this,1);'&gt;About Us&lt;/li&gt;</item>
+</front>
+</headers>

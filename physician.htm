@@ -1,0 +1,84 @@
+<!----------Home----------->	
+	<div id ="welcomePage">
+        <div style="text-align: center;font-size: 110px;font-family: Arial,Helvetica,sans-serif;margin-top: 100px;font-weight: 900;color: rgb(48, 71, 112);">Welcome</div>
+        <center><input type="button" value="Start Session" id="startSessionButton" onClick="document.getElementById('phyNextButton').click()" style="font-size: 50px;height: auto;font-weight: 900;text-transform: uppercase;margin-top: 20px;display:none;"/></center>
+    </div> 
+    <div id = "viewPhysicianHome" style="display:none">
+    	<div id="viewHomeTopBar">
+        <table border="0" width="100%"><tr>
+        	<td width="33.3%" style="text-align:left;padding-left:10px;"><h2><div id="viewHomeTopBarDate"></div></h2></td>
+            <td width="33.3%" style="text-align:center;"><h1><div id="viewHomeTopBarQty"></div></h1></td>
+            <td style="text-align:right;padding-right:10px;"><h2><div id="viewHomeTopBarTime"></div></h2></td>
+        </tr></table>
+        </div>
+        <div class="navigator">
+            <input type="button" name="physician_home_navigator" value="View Elder"		onClick="viewSub('viewElderDetails',this)"	class="navigator_selected">
+            <input type="button" name="physician_home_navigator" value="Prescription"	onClick="viewSub('viewPrescription',this);">
+            <input type="button" name="physician_home_navigator" value="Reports"		onClick="viewSub('viewReports',this);">
+            <div id = "bottomControl" style="display:block;">
+                <input id="phyNextButton" type="button" value="Start" onClick="nextClick(this);">
+            </div>
+        </div>
+        <div id="viewElderDetails">
+        
+        </div>
+        <div id="viewPrescription" style="display:none;">
+        	<div id="prescriptionList" class="listBox" style="display:none;">
+            	
+            </div>
+            <div id="prescriptionPreview" style="display:none;">
+            
+            </div>
+            <div id="newPrecription" style="display:none;">
+            <table><tr><td><div id="prescriptionEntry" style="float:left;">
+                	<form name="prescriptionEntry" action="javascript:addNewEntry();">
+                	<table class="viewer" border="0" cellpadding="10" cellspacing="0">
+                    	<tr><td width="100">Drug Name</td><td width="250"><select name="newPresEntry" style="width:200px;" required></select></td></tr>
+                        <tr><td>Dose</td><td><input type="radio" name="newPresEntryDose" value="1" checked required>1&ensp;
+                        					 <input type="radio" name="newPresEntryDose" value="2">2&ensp;
+                                             <input type="radio" name="newPresEntryDose" value="3">3&ensp;
+                                             <input type="radio" name="newPresEntryDose" value="4">4&ensp;
+                                             <input type="radio" name="newPresEntryDose" value="5">5&ensp;</td></tr>
+                        <tr><td>Pattern</td><td><input type="checkbox" id="newPresEntryPattern1" name="newPresEntryPattern"><label class="checkbox" for="newPresEntryPattern1">Morning</label>&ensp;
+                        					 	<input type="checkbox" id="newPresEntryPattern2" name="newPresEntryPattern"><label class="checkbox" for="newPresEntryPattern2">Noon</label>&ensp;
+                                             	<input type="checkbox" id="newPresEntryPattern3" name="newPresEntryPattern"><label class="checkbox" for="newPresEntryPattern3">Night</label><br>
+                                             	<input type="radio" name="newPresEntryPatternX" value="0" checked required>Before Meal&ensp;
+                                             	<input type="radio" name="newPresEntryPatternX" value="1">After Meal&ensp;</td></tr>
+                        <tr><td>No of Days</td><td><input type="number" name="newPresEntry" required min="1" max="30"></td></tr>
+                        <tr><td></td><td><input id="newPresEntryEmergency"type="checkbox" name="newPresEntry"><label class="checkbox" for="newPresEntryEmergency">Emergency</label></td></tr>
+                        <tr><td colspan="2" align="right"><input type="button" onClick="remPresEntry();"				value="Remove" 				id="removePresEntry"  	style="display:none;margin-left:10px;"/>
+                                                       	  <input type="submit" formaction="javascript:addNewEntry();" 		value="Add" 				id="addPresEntry" 		style="margin-left:10px;"/>
+                                                          <input type="submit" formaction="javascript:editThisEntry();" 	value="Edit" 				id="editPresEntry" 		style="display:none;margin-left:10px;"/></td></tr>
+                    </table>
+                	</form>
+                    <script>
+						//load drug List
+						var xhra = (window.XMLHttpRequest)? new XMLHttpRequest(): new activeXObject("Microsoft.XMLHTTP");
+						var data = new FormData();
+						data.append("func","getDrugList");
+						xhra.onreadystatechange = function(){
+							if(xhra.readyState==4 && xhra.status==200){
+								document.getElementsByName("newPresEntry")[0].innerHTML= xhra.responseText.trim(); 
+							}
+						}
+						xhra.open('post','queryDrug.php',true);
+						xhra.send(data);
+					</script>
+                </div>
+                </td>
+            <td rowspan="2" valign="top"><div id="presEntryList" class="listBox">
+                                <table cellpadding="5" cellspacing="0" align="center">
+                                	<tr style="background-color:#4eabf9;"  onClick='listBox(this);fillNewPresEntry();'><td>New</td></tr>
+                                </table>
+                            </div></td></tr>
+            <tr><td><textarea id="newPresNote" cols="45" rows="5" style="resize:none;display:block;"></textarea><br />
+            <input type="button" onClick="saveNewPres();"					value="Save Prescription" 	id="savePresEntry" 		style="display:none;margin-left:10px;"/>
+                        							   	  </td></tr></table>
+            </div>
+        </div>
+        <div id="viewReports" style="display:none;">
+        
+        </div>
+        <div id="reportPreview" style="display:none;"></div>
+    </div>
+    

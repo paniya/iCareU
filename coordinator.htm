@@ -1,0 +1,321 @@
+<!----------MANAGE ELDER----------->	
+    <div id = "viewElderProfile">
+    	<h1>Manage Elder</h1>
+        <div class="navigator">
+            <input type="button" name="coordinator_viewelder_navigator" value="View Elder"		onClick="viewSub('viewElderDetails',this)"			class="navigator_selected">
+            <input type="button" name="coordinator_viewelder_navigator" value="View Guardian" 	onClick="viewSub('viewElderGuardianDetails',this);" style="display:none">
+            <input type="button" name="coordinator_viewelder_navigator" value="Pill Pod"		onClick="viewSub('viewElderPillPodDetails',this);"	style="display:none">
+            <input type="button" name="coordinator_viewelder_navigator" value="Reports" 		onClick="viewSub('viewElderReports',this);"			style="display:none">
+        	<input type="button" name="coordinator_viewelder_navigatorp" value="Register New"														class="navigator_selected" style="display:none;">
+            <input type="button" name="coordinator_viewelder_navigatorq" value="Edit Elder"															class="navigator_selected" style="display:none;">
+			<input type="button" name="coordinator_viewelder_navigatorr" value="Remove Elder"														class="navigator_selected" style="display:none;">
+			<input type="button" name="coordinator_viewelder_navigators" value="Edit Guardian"														class="navigator_selected" style="display:none;">
+        </div>
+        <div id="displayElderName" style="display:none">
+            <input type="button" name="btnSearchBack" id="btnSearchBack" value="<" style="width:25px;" onClick="elderBack(this);" >
+            <label id="displayElderNameLabel"></label>
+        </div>
+        <div id="viewElderDetails"> <!---------View Elder Details------->
+			<img src="images/loader.gif" style="display:none;" class="loaderGif" id="viewElderDetails_Loader">
+            <div id="findElderBox">
+            	<input type="button"	name="btnSearchBack"value="<" 				style="width:25px; display:none;"	onClick="elderBack(this);" >
+                <input type="text"		id="coordinatorFindElderName"				style="width:510px;" 				onKeyPress="GetChar(event,this);">
+                <input type="button"	name="btnFindElder"	value="Find" 												onClick="findElder(this.form);">
+                <input type="button"	name="btnAddElder"	value="Register Elder"	style="width:100px;"				onClick="viewAddElderTab();">
+            </div>
+            <div id="resultElderBox"> <!--this will give the search results -->
+            </div>
+            <div id="contentElderBox"> <!--this will give the details of elder -->
+            </div>
+        </div>
+        <div id="viewElderGuardianDetails" style="display:none;"> <!---------View Guardian Details------->
+        </div>    
+        <div id="viewElderPillPodDetails" style="display:none;"> <!---------View Pill Pod Details------->
+			<img src="images/loader.gif" style="display:none;" class="loaderGif" id="viewElderPillPodDetails_Loader">
+        </div>  
+        <div id="viewElderReports" style="display:none;"> <!---------View Elder Reports------->
+			<img src="images/loader.gif" style="display:none;" class="loaderGif" id="viewElderReports_Loader">
+            <div id="elderReportList">
+            </div>
+            <div id="elderReportPreview" style="display:none; top:-30px;">
+            </div>
+            <div id="elderReportAdd" style="display:none;">
+                <form name="elderReportAdd">
+                	<table>
+                    <tr><td><label>Report Description</label></td><td><input type="text" name="addReportDescription" style="width:505px;"></td></tr>
+                    <tr><td><label>Report Status</label></td><td><input type="text" name="addReportStatus" style="width:150px;background-position: 0 -920px;"></td></tr>
+                    <tr><td><label>Report File</label></td><td><input type="button" value="Browse..." id="elderReportAddButtonFake" onClick="reportUploaderClick();"><input type="file" id="elderReportAddButton" name="addReportFile" accept="application/pdf" style="display:none;" onchange="reportFileChange(this);"></td></tr>
+                    </table>
+                    <label name="percUploadReport"> </label>
+                    <input type="reset" value="Cancel" style="margin-left:400px;" onClick="
+                                                                document.getElementById('elderReportAdd').style.display='none';
+                                                                document.getElementById('elderReportList').style.display='block';">
+            		<input type="button" value="Add" onClick="addReport(this.form)" style="margin-left:20px;">
+                </form>
+            </div>  
+        </div>
+        <div id="viewElderRegisterNew" style="display:none;"> <!---------View Register New Elder------->
+        	<div id="viewElderRegisterNew_All">
+            <form action="javascript:registerElderSubmit();" method="post" enctype="multipart/form-data">
+                <h3>Elder Details</h3>
+                <table id="viewElderRegisterNew_ElderDetails">
+                    <tr><td width="150">First Name</td><td><input name="RegisterElderField" style="width:300px;" type="text" required autofocus pattern="[A-z ]+"/></td>
+                    	<td rowspan="11" valign="top"><div id="registerElderPropicBox"><img src="images/propic.png" onClick="propicSelClick(this);" id="registerElderPropic"><input type="button" value="X" onClick="clearImage();"</div>
+						<input type="file" style="display:none;" id="registerElderPropicFile" name="RegisterElderField_image" onchange="propicSelChange(this);"></td></tr>   
+                    <tr><td>Middle Name</td><td>	<input type="text" name="RegisterElderField" style="width:300px;" 	pattern="[A-z ]+"/></td></tr>
+                    <tr><td>Last Name</td><td>		<input type="text" name="RegisterElderField" style="width:300px;" 	pattern="[A-z ]+"	required/></td></tr>
+                    <tr><td>Date of Birth</td><td>	<div style="display: inline-block;"><input type="date" name="RegisterElderField"  placeholder="YYYY-MM-DD" id="RegisterElderField_DOB" onClick="monthView_RegisterElderDOB.toggle();" required/>
+													<div id="monthView_RegisterElderDOB"></div>    
+														<script> var d = new Date(); var monthView_RegisterElderDOB = new Calander("monthView_RegisterElderDOB",(d.getFullYear()-100),0,1,(d.getFullYear()-40),11,31,"RegisterElderField_DOB",false);</script>
+													</div>
+					</td></tr>
+                    <tr><td>NIC</td><td>			<input type="text" name="RegisterElderField" class="NIC"			pattern="[0-9]{9}[VX]" maxlength="10" required onblur="elderNICBlur(this.value)"/></td></tr>
+                    <tr><td>Gender</td><td>			<select name="RegisterElderField" required>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                    </select></td></tr>
+                    <tr><td>Address</td><td>		<textarea name="RegisterElderField" cols="40" rows="5"  style="resize:none" required></textarea></td></tr>
+                    <tr><td>Contact Number</td><td>	<input type="text" name="RegisterElderField"  pattern="[0-9]+" maxlength="10" required/></td></tr>
+                    <tr><td>Height(cm)</td><td>			<input type="number" name="RegisterElderField"  min="100" max="200"/></td></tr>
+                    <tr><td>Weight(Kg)</td><td>			<input type="number" name="RegisterElderField" min="40" max="150" /></td></tr>
+                    <tr><td>Allergies</td><td>		<textarea type="text" name="RegisterElderField" cols="40" rows="5"  style="resize:none"></textarea></td></tr>
+                </table>
+                
+                <h3>Guardian Details</h3>
+                <div>
+                    <input type="radio" value="new" name="xx1" checked onclick="guardianNew();"/>New Guardian
+                    <input type="radio" value="exist" name="xx1" onclick="guardianExsist();"/>Existing Guardian
+                </div>
+                <div id="viewElderRegisterNew_GuardianID" style="display:none;">
+                    <input type="text" id="viewElderRegisterNew_GuardianIDText" pattern="[0-9]{9}[VX]|2[0-9]{10}" placeholder="Enter NIC or GuardianID" maxlength="11"/>
+                    <input type="button" value="Find" onclick="findGuardianID();" /><br>
+                    <font size="2"><label id="viewElderRegisterNew_GuardianIDResult"></label></font>
+                    <input type="hidden" value="" id="viewElderRegisterNew_GuardianIDResultH" name="RegisterElderField" />
+                </div>
+                <table id="viewElderRegisterNew_GuardianDetails">
+                    <tr><td width="150">Full Name</td><td><input style="width:300px;" type="text" name="RegisterGuardianField" pattern="[A-z ]+"  id="RegisterGuardianField_DOB" onClick="monthView_RegisterGuardianDOB.toggle();" required/></td></tr>
+                    <tr><td>NIC</td>			<td><input type="text" name="RegisterGuardianField" pattern="[0-9]{9}[VX]" class="NIC"  maxlength="10" onblur="guardianNICBlur(this.value)" required/></td></tr>
+                    <tr><td>Gender</td>			<td><select name="RegisterGuardianField" required>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                    </select></td></tr>
+                    <tr><td>Contact Number</td>	<td><input type="text" name="RegisterGuardianField" pattern="[0-9]+"  maxlength="10" required/></td></tr>
+                    <tr><td>Address</td>		<td><textarea type="text" name="RegisterGuardianField"  cols="40" rows="5" style="resize:none" required></textarea></td></tr>
+                </table>
+            <div id="viewElderRegisterNew_Actions" style="margin-top:30px;margin-bottom:50px;">
+                <input type="submit" value="Register" /> <!--onClick="registerElderClick1();" -->
+                <input type="button" value="Cancel" id="btnRegisterElderCancel" onClick="registerElderCancelClick();" />
+            </div>
+            </form>
+            </div>
+            <div id="viewElderRegisterNewMessage" style="display:none;"></div>
+        </div>
+		<div id="viewElderEditElder" style="display:none;"> <!---------View Edit Elder------->
+		<input value="Cancel" id="btnEditElderCancel" onclick="editElderCancelClick();" type="button">
+		</div>
+		<div id="viewElderRemoveElder" style="display:none;"> <!---------View Remove Elder------->
+		<input value="Cancel" id="btnRemoveElderCancel" onclick="removeElderCancelClick();" type="button">
+		</div>
+		<div id="viewElderEditGuardian" style="display:none;"> <!---------View Edit Guardian------->
+		<input value="Cancel" id="btnEditGuardianCancel" onclick="editGuardianCancelClick();" type="button">
+		</div>
+	</div>
+    
+<!----------DRUG STORE----------->
+	<div id = "viewDrugStore" style="display:none">
+    	<h1>DRUG STORE</h1>
+        <div class="navigator">
+            <input type="button" name="coordinator_viewDrugStore_navigator" value="Add Drug"			onClick="viewSub('viewDrugAdd',this)"	class="navigator_selected">
+            <input type="button" name="coordinator_viewDrugStore_navigator" value="Drug Inventory" 	onClick="viewSub('viewDrugInventory',this);"	>
+        </div>
+        <div id="viewDrugAdd">
+        <form name="viewDrugAdd" action="javascript:addNewDrug();">
+        	<table>
+            	<tr><td width="100">Drug Name</td><td><input type="text" name="viewDrugAddField" style="width:200px;" maxlength="26" required/></td></tr>
+                <tr><td>Brand Name</td><td><input type="text" name="viewDrugAddField" style="width:200px;" maxlength="26" required/></td></tr>
+                <tr><td>Weight(mg)</td><td><input type="number" name="viewDrugAddField" min="5" max="500" step="0.01" required/></td></tr>
+                <tr><td>Colour</td><td><div class="dropdown" id="drugDropdown1" onclick='dropDownClick("viewDrugAddFieldDrop1");'><label id="viewDrugAddField3" style="display: block;min-width:120px;">Select Color</label>
+                						<input type="hidden" name="viewDrugAddField" value="" required>
+                                          <div class="dropdown-content" id="viewDrugAddFieldDrop1">
+                                          	<table cellpadding="3px" valign="top" border="0" cellspacing="0" width="100%">
+                                            	<tr onClick='dropDownItemClick(this,"white","viewDrugAddField",3,"drugDropdown1");'><td><label style="width:10px;background-color:white;padding-right:11px;"></label></td><td valign="middle">White</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Red","viewDrugAddField",3,"drugDropdown1");'><td><label style="width:10px;background-color:red;padding-right:11px;"></label></td><td valign="middle">Red</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Yellow","viewDrugAddField",3,"drugDropdown1");'><td><label style="width:10px;background-color:yellow;padding-right:11px;"></label></td><td valign="middle">Yellow</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Blue","viewDrugAddField",3,"drugDropdown1");'><td><label style="width:10px;background-color:blue;padding-right:11px;"></label></td><td valign="middle">Blue</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Orange","viewDrugAddField",3,"drugDropdown1");'><td><label style="width:10px;background-color:orange;padding-right:11px;"></label></td><td valign="middle">Orange</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Brown","viewDrugAddField",3,"drugDropdown1");'><td><label style="width:10px;background-color:brown;padding-right:11px;"></label></td><td valign="middle">Brown</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Other","viewDrugAddField",3,"drugDropdown1");'><td valign="middle">Other</td></tr>          
+                                            </table>
+                                          </div>
+                                       </div>
+                </td></tr>
+                <tr><td>Shape</td><td><div class="dropdown" id="drugDropdown2" onclick='dropDownClick("viewDrugAddFieldDrop2");'><label id="viewDrugAddField4" style="display: block;min-width:120px;">Select Shape</label>
+                						<input type="hidden" name="viewDrugAddField" value=""  required>
+                                          <div class="dropdown-content" id="viewDrugAddFieldDrop2">
+                                          	<table cellpadding="3px" valign="top" border="0" cellspacing="0" width="100%">
+                                            	<tr onClick='dropDownItemClick(this,"Barrel","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/Barrel.png" width="60px" height="40px"/></td><td valign="middle">Barrel</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Capsule","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/Capsule.png" width="60px" height="40px"/></td><td valign="middle">Capsule</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Character","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/Character.png" width="60px" height="40px"/></td><td valign="middle">Character</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Egg","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/Egg.png" width="60px" height="40px"/></td><td valign="middle">Egg</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Figure 8","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/Figure 8.png" width="60px" height="40px"/></td><td valign="middle">Figure 8</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Gear","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/Gear.png" width="60px" height="40px"/></td><td valign="middle">Gear</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Heart","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/Heart.png" width="60px" height="40px"/></td><td valign="middle">Heart</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Kidney","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/Kidney.png" width="60px" height="40px"/></td><td valign="middle">Kidney</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Oval","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/Oval.png" width="60px" height="40px"/></td><td valign="middle">Oval</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"Round","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/Round.png" width="60px" height="40px"/></td><td valign="middle">Round</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"U Shaped","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/U Shaped.png" width="60px" height="40px"/></td><td valign="middle">U Shaped</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"3 Sided","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/3 Sided.png" width="60px" height="40px"/></td><td valign="middle">3 Sided</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"4 Sided","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/4 Sided.png" width="60px" height="40px"/></td><td valign="middle">4 Sided</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"5 Sided","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/5 Sided.png" width="60px" height="40px"/></td><td valign="middle">5 Sided</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"6 Sided","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/6 Sided.png" width="60px" height="40px"/></td><td valign="middle">6 Sided</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"7 Sided","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/7 Sided.png" width="60px" height="40px"/></td><td valign="middle">7 Sided</td></tr>
+                                                <tr onClick='dropDownItemClick(this,"8 Sided","viewDrugAddField",4,"drugDropdown2");'><td><img src="images/pills/8 Sided.png" width="60px" height="40px"/></td><td valign="middle">8 Sided</td></tr>
+                                          	</table>
+                                          </div>
+                                       </div>
+                </td></tr>
+				<tr><td>Description</td><td><textarea name="viewDrugAddField" rows="2" cols="20" maxlength="40" style="resize:none;"></textarea></td></tr>
+                <tr><td colspan="2"><input type="submit" style="display: inline-block;" value="Add Drug"/>&nbsp;<input type="button" style="display: inline-block;" value="Clear" onClick="resetDrugFields();" /></td></tr>
+            </table>
+        </form>
+            
+		</div>
+        <div id="viewDrugInventory" style="display:none">
+        	<img src="images/loader.gif" class="loaderGif" id="viewElderDetails_Loader">
+		</div>
+    </div>
+    
+<!----------PILL POD----------->
+	<div id = "viewPillPod" style="display:none;margin-bottom:100px;">
+    	<h1>PILL POD</h1>
+		<div class="navigator">
+            <input type="button" name="coordinator_viewPillPod_navigator" value="Add Device"		onClick="viewSub('viewPillPodAdd',this)"	class="navigator_selected">
+            <input type="button" name="coordinator_viewPillPod_navigator" value="Device Inventory" 	onClick="viewSub('viewPillPodInventory',this);"	>
+        </div>
+		<div id="viewPillPodAdd">
+        	<form name="viewPillPodAdd" action="javascript:addNewPillPod();">
+			<table>
+				   <tr><td>Access Number</td><td><input type = "text" name="viewPillPodAdd_accessNumber" maxlength="10" paceholder="07XXXXXXXX" pattern="07[0-9]{8}" required="required"></td></tr>
+				   <tr><td>Compartments</td><td><select name="viewPillPodAdd_compartments" style="width:50px;">
+													<option value="5">5</option>
+													<option value="8">8</option>
+													<option value="11">11</option>                        
+												</select></td></tr>
+				   <tr><td></td><td><input type="submit" value="Add"></td></tr>
+			</table>
+            </form>
+		</div>
+		<div id="viewPillPodInventory" style="display:none">
+        	Loading...
+		</div>
+    </div>
+    
+<!----------APPOINTMENTS----------->
+	<div id = "viewAppointments" style="display:none">
+    	<h1>APPOINTMENTS</h1>
+		<div class="navigator">
+            <input type="button" name="coordinator_viewappointments_navigator" value="Holiday Calender"			onClick="viewSub('viewAppointmentsCalender',this)"	class="navigator_selected">
+            <input type="button" name="coordinator_viewappointments_navigator" value="Today's Appointments" 	onClick="viewSub('viewAppointmentsToday',this);"	>
+			<input type="button" name="coordinator_viewappointments_navigator" value="All Appointments"			onClick="viewSub('viewAppointmentsAll',this)">
+            <input type="button" name="coordinator_viewappointments_navigator" value="Visitor's Appointments"	onClick="viewSub('viewAppointmentsvisiitors',this); loadVisitorAppointments();" style="display:none;">
+            
+		</div>
+        <div id='viewAppointmentsCalender'>
+        	<div id="viewAppointmentsCalenderFilter">
+            	<select name="viewAppointmentsCalenderFilter_Filter" style="width:300px">
+        			<option value="general">General Holidays</option>
+                </select>
+                &nbsp;<input type="button" value="Filter" onClick="calenderFilterClick();">&nbsp;<input type="button" value="Add Holiday" onClick="calenderAddClick();">
+            </div>
+            <div id="viewAppointmentsCalenderEntries" style="margin-top:20px;display:none;">
+            
+            </div>
+            <div id="viewAppointmentsCalenderAdd" style="display:none;">
+				<form action="javascript:calenderFilterSubmit();">
+					<table>
+						<tr><td width="100">Holiday</td><td>
+						<select name="viewAppointmentsCalenderAddElem" style="width:300px">
+							<option value="general">General Holidays</option>
+						</select></td></tr>
+						<tr><td>Date</td><td><div style="display:inline-block;"><input type="date" Placeholder="YYYY-MM-DD" id ="viewAppointmentsCalenderAddElem_Date" name="viewAppointmentsCalenderAddElem" readonly onClick="monthView_AddHoliday.toggle();" required>
+											<div id="monthView_AddHoliday"></div>    
+							<script> var d= new Date() ; var monthView_AddHoliday = new Calander("monthView_AddHoliday",2016,5,24,d.getFullYear()+1,d.getMonth(),d.getDate()+7,"viewAppointmentsCalenderAddElem_Date");</script></td></tr>
+						<tr><td>From</td><td><input type="time" Placeholder="HH:MM" name="viewAppointmentsCalenderAddElem" required></td></tr>
+						<tr><td>To</td><td><input type="time" Placeholder="HH:MM" name="viewAppointmentsCalenderAddElem"required></td></tr>
+						<tr><td>Reason</td><td><input type="text" name="viewAppointmentsCalenderAddElem" required style="width:200px"></td></tr>
+						<tr><td></td><td><input type="submit" value="Add" >&nbsp;
+						<input type="button" value="Cancel" onClick="calenderNewCancel();"></td></tr>
+					</table>
+				</form>
+            </div>
+        </div>
+        <div id='viewAppointmentsToday' style="display:none;">
+        	<div id="viewAppointmentsTodayFilter">
+                <select name="viewAppointmentsToday_Filter" style="width:300px">
+                </select>
+                &nbsp;<input type="button" value="Filter" onClick="getTodaysAppointments();">
+            </div>
+            <div id="viewAppointmentsTodayResults" style="margin-top:20px;display:none;">
+            
+            </div>
+        </div>
+        <div id='viewAppointmentsAll' style="display:none;">
+        	<div id="viewAppointmentsAllFilter">
+                <select name="viewAppointmentsAll_Filter" style="width:300px">
+                </select>
+                &nbsp;<div style="display: inline-block;"><input type="date" placeholder="YYYY-MM-DD" name="viewAppointmentsAll_Filter" id="viewAppointmentsAll_Filter_Date" onClick="monthView_AllAppointments.toggle();">
+							<div id="monthView_AllAppointments"></div>    
+							<script> var monthView_AllAppointments = new Calander("monthView_AllAppointments",2016,5,24,2100,1,1,"viewAppointmentsAll_Filter_Date",true);</script>
+					  </div>		
+                &nbsp;<input type="button" value="Filter" onClick="getAllAppointments();">
+                <script type="application/javascript">
+                    physiciansLoad();
+                </script>
+            </div>
+            <div id="viewAppointmentsAllResults" style="margin-top:20px;display:none;">
+            
+            </div>
+        </div>
+		<div id='viewAppointmentsvisiitors' style="display:none;">
+		
+		</div>
+    </div>
+        
+<!----------Messages----------->
+	<div id = "viewMessages" style="display:none">
+    	<h1>Messages</h1>
+		<div class="navigator">
+            <input type="button" name="coordinator_viewMessages_navigator" value="Guardians"		onClick="viewSub('viewMessagesGuardian',this);"			style="display:none;">
+            <input type="button" name="coordinator_viewMessages_navigator" value="Visitors" 	onClick="viewSub('viewMessagesVisitors',this); viewVisitorMessages();" class="navigator_selected">
+        </div>
+        <div id="viewMessagesGuardian" style="display:none;">
+        	Messages From Guardian
+        </div>
+		<div id="viewMessagesVisitors">
+        	Messages From Visitors
+        </div>
+	</div>
+	
+<!----------My Profile----------->
+	<div id = "viewMyProfile" style="display:none">
+    	<h1>My Profile</h1>
+		<div class="navigator">
+            <input type="button" name="coordinator_viewMyProfile_navigator" value="Change Password" class="navigator_selected">
+        </div>
+        <div id="viewMyProfileDetails">
+			<form name="myProfileChangePW" action="javascript:changePw(this);">
+				<table cellspacing="0" cellpadding="5px">
+					<tr><td width="150">Old Password</td><td><input type="password" name="MyProfileCPField" required></td></tr>
+					<tr><td>New Password</td><td><input type="password" name="MyProfileCPField" required></td></tr>
+					<tr><td>Confirm Password</td><td><input type="password" name="MyProfileCPField" required></td></tr>
+					<tr><td></td><td><input type="submit" value="Change"> <input type="reset" value="Clear"></td></tr> 
+				</table>
+				<br><font size="2">&nbsp;Your New Password Should,
+				<ul style="margin-left:270px">
+					<li>contain at least 6 characters</li>
+					<li>contain at least 1 Simple letter and 1 Capital letter</li>
+					<li>not equal to the old password</li>
+				</ul></font>
+			</form>
+        </div
+    ></div>
